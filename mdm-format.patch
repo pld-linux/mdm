@@ -1,0 +1,69 @@
+--- mdm-2.0.19/daemon/mdm-daemon-config.c.orig	2017-11-03 22:25:48.000000000 +0100
++++ mdm-2.0.19/daemon/mdm-daemon-config.c	2023-06-18 18:50:01.051283857 +0200
+@@ -1815,7 +1815,7 @@ handle_no_displays (MdmConfig *config,
+ 
+ 	} else {
+ 		if (console_notify) {
+-			gchar *s = g_strdup_printf (C_(N_("MDM "
++			gchar *s = g_strdup (C_(N_("MDM "
+ 							  "cannot find any static server "
+ 							  "to start.  Aborting!  Please "
+ 							  "correct the configuration "
+@@ -1873,7 +1873,7 @@ mdm_daemon_change_user (MdmConfig *confi
+ 
+ 	if G_UNLIKELY (uid == 0) {
+ 		if (console_notify) {
+-			gchar *s = g_strdup_printf (C_(N_("The MDM user is set to be root, but "
++			gchar *s = g_strdup (C_(N_("The MDM user is set to be root, but "
+ 							  "this is not allowed since it can "
+ 							  "pose a security risk.  Please "
+ 							  "correct MDM configuration and "
+@@ -1905,7 +1905,7 @@ mdm_daemon_change_user (MdmConfig *confi
+ 
+ 	if G_UNLIKELY (gid == 0) {
+ 		if (console_notify) {
+-			gchar *s = g_strdup_printf (C_(N_("The MDM group is set to be root, but "
++			gchar *s = g_strdup (C_(N_("The MDM group is set to be root, but "
+ 							  "this is not allowed since it can "
+ 							  "pose a security risk. Please "
+ 							  "correct MDM configuration and "
+--- mdm-2.0.19/daemon/slave.c.orig	2017-11-03 22:25:48.000000000 +0100
++++ mdm-2.0.19/daemon/slave.c	2023-06-18 19:33:42.820413848 +0200
+@@ -236,7 +236,7 @@ enum {
+ 	} else {									\
+ 		/* evil! how this this happen */					\
+ 		if (slave_start_jmp_error_to_print != NULL)				\
+-			mdm_error (slave_start_jmp_error_to_print);			\
++			mdm_error ("%s", slave_start_jmp_error_to_print);		\
+ 		mdm_error ("Bad (very very VERY bad!) things happening in signal");	\
+ 		_exit (DISPLAY_REMANAGE);						\
+ 	}										\
+@@ -677,7 +677,7 @@ term_session_stop_and_quit (void)
+ 	need_to_quit_after_session_stop = TRUE;
+ 
+ 	if (slave_start_jmp_error_to_print != NULL)
+-		mdm_error (slave_start_jmp_error_to_print);
++		mdm_error ("%s", slave_start_jmp_error_to_print);
+ 	slave_start_jmp_error_to_print = NULL;
+ 
+ 	/* only if we're not hanging in session stop and getting a
+@@ -706,7 +706,7 @@ term_quit (void)
+ 	need_to_quit_after_session_stop = TRUE;
+ 
+ 	if (slave_start_jmp_error_to_print != NULL)
+-		mdm_error (slave_start_jmp_error_to_print);
++		mdm_error ("%s", slave_start_jmp_error_to_print);
+ 	slave_start_jmp_error_to_print = NULL;
+ 
+ 	mdm_debug ("term_quit: Final cleanup");
+--- mdm-2.0.19/daemon/misc.c.orig	2017-11-03 22:25:48.000000000 +0100
++++ mdm-2.0.19/daemon/misc.c	2023-06-18 19:25:39.069701217 +0200
+@@ -1823,7 +1823,7 @@ mdm_fail (const gchar *format, ...)
+     va_end (args);
+ 
+     /* Log to both syslog and stderr */
+-    mdm_error (s);
++    mdm_error ("%s", s);
+     if (getpid () == mdm_main_pid) {
+ 	    mdm_fdprintf (2, "%s\n", s);
+     }

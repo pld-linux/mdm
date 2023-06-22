@@ -1,0 +1,31 @@
+--- mdm-2.0.19/configure.ac.orig	2023-06-20 13:46:32.623789446 +0200
++++ mdm-2.0.19/configure.ac	2023-06-20 17:36:41.955644541 +0200
+@@ -770,7 +770,7 @@ AC_SUBST(DBUS_LIBS)
+ #
+ AC_SUBST(authdir, ${localstatedir}/mdm)
+ AC_SUBST(mdmlocaledir, ${mdmconfdir})
+-AC_SUBST(pixmapdir, ${datadir}/pixmaps)
++AC_SUBST(pixmapdir, ${datadir}/mdm/pixmaps)
+ 
+ AC_ARG_WITH(log-dir,    [  --with-log-dir=<file>     log dir])
+ 
+--- mdm-2.0.19/pixmaps/Makefile.am.orig	2017-11-03 22:25:48.000000000 +0100
++++ mdm-2.0.19/pixmaps/Makefile.am	2023-06-20 17:38:23.511761031 +0200
+@@ -2,8 +2,6 @@
+ SUBDIRS = \
+ 	24x24 48x48
+ 
+-pixmapdir = $(datadir)/pixmaps
+-
+ BITMAPS = nobody.png nohost.png
+ 
+ pixmap_DATA = $(BITMAPS)
+--- mdm-2.0.19/gui/faces/Makefile.am.orig	2017-11-03 22:25:48.000000000 +0100
++++ mdm-2.0.19/gui/faces/Makefile.am	2023-06-20 17:39:24.541430405 +0200
+@@ -1,5 +1,5 @@
+ 
+-imagedir = $(datadir)/pixmaps/faces
++imagedir = $(pixmapdir)/faces
+ 
+ image_DATA = \
+ 	user-generic.png

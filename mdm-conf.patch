@@ -1,0 +1,22 @@
+--- mdm-2.0.19/config/mdm.conf.in.orig	2017-11-03 22:25:48.000000000 +0100
++++ mdm-2.0.19/config/mdm.conf.in	2023-06-21 21:51:51.757968586 +0200
+@@ -50,8 +50,8 @@ RootPath=/usr/local/bin:/usr/local/sbin:
+ # User and group used for running MDM GUI applications.  By default this is set
+ # to user "mdm" and group "mdm".  This user/group should have very limited
+ # permissions and access to only the mdm directories and files.
+-User=mdm
+-Group=mdm
++User=xdm
++Group=xdm
+ 
+ # To try to kill all clients started at greeter time or in the Init script.
+ # does not always work, only if those clients have a window of their own.
+@@ -144,7 +144,7 @@ StandardXServer=@X_SERVER@
+ # Automatic VT allocation.  Right now only works on Linux.  This way we force
+ # X to use specific vts.  Turn VTAllocation to false if this is causing
+ # problems.
+-FirstVT=7
++FirstVT=9
+ VTAllocation=true
+ # Should double login be treated with a warning (and possibility to change VT's
+ # on Linux and FreeBSD systems for console logins)
